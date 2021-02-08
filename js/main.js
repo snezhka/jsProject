@@ -7,21 +7,7 @@
  * @returns {number}
  */
 const getRandomInt = (min, max) => {
-  if (min < 0) {
-    throw 'min value must be positive number.';
-  }
-
-  if (max < 0) {
-    throw 'max value must be positive number.';
-  }
-
-  if (max <= min) {
-    throw 'max value must be more than min.';
-  }
-
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min;
+  return Math.floor(getRandomFloat(min, max, 1));
 };
 
 /**
@@ -47,3 +33,9 @@ const getRandomFloat = (min, max, digits) => {
   const result = Math.random() * (max - min) + min;
   return parseFloat(result.toFixed(digits));
 };
+
+// eslint-disable-next-line no-console
+console.log(getRandomInt(0, 100));
+
+// eslint-disable-next-line no-console
+console.log(getRandomFloat(0, 100, 5));
