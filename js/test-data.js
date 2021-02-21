@@ -75,9 +75,8 @@ const TestOffer = function (location) {
  */
 const TestHousing = function () {
   this.author =  new TestAuthor();
-  this.location = location;
+  this.location = new TestLocation();
   this.offer = new TestOffer(this.location);
-
 };
 
 export {TestHousing};
