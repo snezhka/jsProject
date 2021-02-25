@@ -1,8 +1,8 @@
 'use strict';
 
 import {TestHousing} from './test-data.js';
+import {Card} from './card.js';
 
-const housings = new Array(10).fill(null).map(() => new TestHousing());
-
-// eslint-disable-next-line no-console
-console.log(housings)
+const mapCanvas = document.querySelector('#map-canvas');
+const card = new Card(new TestHousing());
+mapCanvas.append(card.render());
