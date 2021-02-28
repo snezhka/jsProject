@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * Map housing types on name
+ * @type {Object}
+ */
 const HOUSING_TYPES_TITLES = {
   'palace': 'Дворец',
   'flat': 'Квартира',
@@ -7,113 +11,89 @@ const HOUSING_TYPES_TITLES = {
   'bungalow': 'Бунгало',
 };
 
-const FEATURES_CLASSES = {
-  'wifi': 'popup__feature--wifi',
-  'dishwasher': 'popup__feature--dishwasher',
-  'parking': 'popup__feature--parking',
-  'washer': 'popup__feature--washer',
-  'elevator': 'popup__feature--elevator',
-  'conditioner': 'popup__feature--conditioner',
-}
-
+/**
+ * ctor the card of housing
+ * @param cardData the housing data
+ * @constructor
+ */
 const Card = function (cardData) {
-  this.data = cardData;
-  this.template = document.querySelector('#card').content.querySelector('.popup');
+  const template = document.querySelector('#card').content.querySelector('.popup');
 
+  /**
+   * Render the popup with the card of housing
+   * @returns {Node}
+   */
   this.render = () => {
-    const card = this.template.cloneNode(true);
-    const data = this.data;
+    const card = template.cloneNode(true);
 
     const featuresRender = (features) => {
       const listElement = card.querySelector('.popup__features');
-      const fragment = document.createDocumentFragment();
 
-      features.forEach((feature) => {
-        const el = document.createElement('li');
-        el.classList.add('popup__feature');
-        el.classList.add(FEATURES_CLASSES[feature]);
-        fragment.append(el);
-      });
+      if (features && features.length) {
+        const fragment = document.createDocumentFragment();
 
-      listElement.innerHTML = '';
-      listElement.append(fragment);
+        features.forEach((feature) => {
+          const el = document.createElement('li');
+          el.classList.add('popup__feature');
+          el.classList.add('popup__feature--' + feature);
+          fragment.append(el);
+        });
+
+        listElement.innerHTML = '';
+        listElement.append(fragment);
+      } else {
+        listElement.hidden = true;
+      }
     };
+
     const photosRender = (photos) => {
       const containerElement = card.querySelector('.popup__photos');
-      const photoTemplate = containerElement.querySelector('.popup__photo');
-      const fragment = document.createDocumentFragment();
+      if (photos && photos.length) {
+        const photoTemplate = containerElement.querySelector('.popup__photo');
+        const fragment = document.createDocumentFragment();
 
-      photos.forEach((photo) => {
-        const el = photoTemplate.cloneNode();
-        el.src = photo;
-        fragment.append(el);
-      });
+        photos.forEach((photo) => {
+          const el = photoTemplate.cloneNode();
+          el.src = photo;
+          fragment.append(el);
+        });
 
-      containerElement.innerHTML = '';
-      containerElement.append(fragment);
+        containerElement.innerHTML = '';
+        containerElement.append(fragment);
+      } else {
+        containerElement.hidden = true;
+      }
     };
 
-    if (data.offer.title) {
-      card.querySelector('.popup__title').innerText = data.offer.title;
-    } else {
-      card.querySelector('.popup__title').hidden = true;
-    }
+    const fillField = (selector, value, isVisible) => {
+      const field = card.querySelector(selector);
 
-    if (data.offer.address) {
-      card.querySelector('.popup__text--address').innerText = data.offer.address;
-    } else {
-      card.querySelector('.popup__text--address').hidden = true;
-    }
+      field.innerText = value;
+      field.hidden = !isVisible;
+    };
 
-    if (data.offer.price) {
-      card.querySelector('.popup__text--price').innerText = `${data.offer.price} ₽/ночь`;
-    } else {
-      card.querySelector('.popup__text--price').hidden = true;
-    }
+    fillField('.popup__title', cardData.offer.title, cardData.offer.title);
+    fillField('.popup__text--address', cardData.offer.address, cardData.offer.title);
+    fillField('.popup__text--price', `${cardData.offer.price} ₽/ночь`, cardData.offer.title);
+    fillField('.popup__type', HOUSING_TYPES_TITLES[cardData.offer.type], cardData.offer.type);
+    fillField('.popup__description', cardData.offer.description, cardData.offer.description);
+    fillField('.popup__avatar', cardData.offer.description, cardData.offer.description);
 
-    if (data.offer.type) {
-      card.querySelector('.popup__type').innerText = HOUSING_TYPES_TITLES[data.offer.type];
-    } else {
-      card.querySelector('.popup__type').hidden = true;
-    }
+    fillField('.popup__text--capacity',
+      `${cardData.offer.rooms} комнаты для ${cardData.offer.guests} гостей`,
+      cardData.offer.rooms);
 
-    if (data.offer.rooms) {
-      card.querySelector('.popup__text--capacity').innerText = `${data.offer.rooms} комнаты для ${data.offer.guests} гостей`;
-    } else {
-      card.querySelector('.popup__text--capacity').hidden = true;
-    }
+    fillField('.popup__text--time',
+      `Заезд после ${cardData.offer.checkin}, выезд до ${cardData.offer.checkout}`,
+      cardData.offer.checkin && cardData.offer.checkout);
 
-    if (data.offer.checkin && data.offer.checkout) {
-      card.querySelector('.popup__text--time').innerText = `Заезд после ${data.offer.checkin}, выезд до ${data.offer.checkout}`;
-    } else {
-      card.querySelector('.popup__text--time').hidden = true;
-    }
+    featuresRender(cardData.offer.features);
 
-    if (data.offer.description) {
-      card.querySelector('.popup__description').innerText = data.offer.description;
-    } else {
-      card.querySelector('.popup__description').hidden = true;
-    }
+    photosRender(cardData.offer.photos);
 
-    if (data.offer.features && data.offer.features.length)
-    {
-      featuresRender(data.offer.features);
-    } else {
-      card.querySelector('.popup__features').hidden = true;
-    }
-
-    if (data.offer.photos && data.offer.photos.length) {
-      photosRender(data.offer.photos);
-    } else {
-      card.querySelector('.popup__photos').hidden = true;
-    }
-
-    if (data.author.avatar) {
-      card.querySelector('.popup__avatar').src = data.author.avatar;
-    } else {
-      card.querySelector('.popup__avatar').hidden = true;
-    }
-
+    const avatar = card.querySelector('.popup__avatar');
+    avatar.src = cardData.author.avatar;
+    avatar.hidden = cardData.author.avatar;
 
     return card;
   };
