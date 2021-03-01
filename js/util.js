@@ -30,8 +30,13 @@ const getRandomFloat = (min, max, digits) => {
     throw 'max value must be more than min.';
   }
 
-  const result = Math.random() * (max - min) + min;
-  return parseFloat(result.toFixed(digits));
+  let result = max;
+  while (result === max) {
+    result = Math.random() * (max - min) + min;
+    result = parseFloat(result.toFixed(digits));
+  }
+
+  return result;
 };
 
 /**
