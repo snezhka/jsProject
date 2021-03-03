@@ -1,12 +1,7 @@
 'use strict';
 
-import {getRandomFloat, getRandomInt, getRandomArrayElement, getRandomArrayElements} from './util.js';
-
-/**
- * List of housing types
- * @type {string[]}
- */
-const HOUSING_TYPES = ['palace', 'flat', 'house', 'bungalow'];
+import {getRandomFloat, getRandomInt, getRandomArrayElement, getRandomArrayElements} from '../util.js';
+import {HOUSING_TYPES} from './references.js'
 
 /**
  * List times of checkin and checkout
@@ -59,7 +54,7 @@ const TestOffer = function (location) {
   this.title = 'Тестовое объявление';
   this.address = `${location.x}, ${location.y}`;
   this.price = getRandomFloat(1, 10000, 2);
-  this.type = getRandomArrayElement(HOUSING_TYPES);
+  this.type = getRandomArrayElement(Object.keys(HOUSING_TYPES));
   this.rooms = getRandomInt(1, 11);
   this.guests = getRandomInt(1, 11);
   this.checkin = getRandomArrayElement(CHECK_TIMES);
