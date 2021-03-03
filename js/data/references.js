@@ -7,20 +7,20 @@
 const HOUSING_TYPES = {
   'bungalow': {
     title: 'Бунгало',
-    minPrice: 0
+    minPrice: 0,
   },
   'flat': {
     title: 'Квартира',
-    minPrice: 1000
+    minPrice: 1000,
   },
   'house': {
     title: 'Дом',
-    minPrice: 5000
+    minPrice: 5000,
   },
   'palace': {
     title: 'Дворец',
-    minPrice: 10000
-  }
+    minPrice: 10000,
+  },
 };
 
 export {HOUSING_TYPES}
