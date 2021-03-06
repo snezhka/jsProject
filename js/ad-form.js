@@ -18,15 +18,9 @@ const AdForm = function () {
    * Clears the form.
    */
   this.clear = () => {
-    setFirstOptionInSelect(housingTypeInput);
+    form.reset();
     setMinPrice(getMinPriceByHousingType(housingTypeInput.value));
-
-    setFirstOptionInSelect(timeInInput);
     timeOutInput.value = timeInInput.value;
-  };
-
-  const setFirstOptionInSelect = (select) => {
-    select.value = select.options[0].value;
   };
 
   const setMinPrice = (minPrice) => {
