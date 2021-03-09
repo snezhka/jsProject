@@ -1,15 +1,6 @@
 'use strict';
 
-/**
- * Map housing types on name
- * @type {Object}
- */
-const HOUSING_TYPES_TITLES = {
-  'palace': 'Дворец',
-  'flat': 'Квартира',
-  'house': 'Дом',
-  'bungalow': 'Бунгало',
-};
+import {HOUSING_TYPES} from './data/references.js'
 
 /**
  * ctor the card of housing
@@ -75,7 +66,7 @@ const Card = function (cardData) {
     fillField('.popup__title', cardData.offer.title, cardData.offer.title);
     fillField('.popup__text--address', cardData.offer.address, cardData.offer.title);
     fillField('.popup__text--price', `${cardData.offer.price} ₽/ночь`, cardData.offer.title);
-    fillField('.popup__type', HOUSING_TYPES_TITLES[cardData.offer.type], cardData.offer.type);
+    fillField('.popup__type', HOUSING_TYPES[cardData.offer.type].title, cardData.offer.type);
     fillField('.popup__description', cardData.offer.description, cardData.offer.description);
     fillField('.popup__avatar', cardData.offer.description, cardData.offer.description);
 
