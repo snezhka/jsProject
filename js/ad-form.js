@@ -20,8 +20,23 @@ const AdForm = function () {
   this.clear = () => {
     form.reset();
     setMinPrice(getMinPriceByHousingType(housingTypeInput.value));
-    timeOutInput.value = timeInInput.value;
   };
+
+  // TODO Добавить описание
+  this.toggleActive = (active = true) => {
+    if (active) {
+      form.classList.remove('ad-form--disabled');
+    } else {
+      form.classList.add('ad-form--disabled');
+    }
+
+    const fieldsets = form.querySelectorAll('fieldset');
+    fieldsets.forEach((fieldset) => {
+      fieldset.disabled = !active;
+    });
+  };
+
+  // TODO добавить метод установки адреса
 
   const setMinPrice = (minPrice) => {
     priceInput.placeholder = minPrice;
