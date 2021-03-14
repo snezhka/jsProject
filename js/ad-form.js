@@ -2,6 +2,8 @@
 
 import {HOUSING_TYPES} from './data/references.js'
 
+const COORDS_DIGITS = 5
+
 /**
  * class for managing the behavior of the ad form.
  * @constructor
@@ -12,7 +14,10 @@ const AdForm = function () {
   const priceInput = form.querySelector('#price');
   const timeInInput = form.querySelector('#timein');
   const timeOutInput = form.querySelector('#timeout');
+  const addressInput = form.querySelector('#address');
   const clearButton = form.querySelector('.ad-form__reset');
+
+  addressInput.readOnly = true;
 
   /**
    * Clears the form.
@@ -22,7 +27,10 @@ const AdForm = function () {
     setMinPrice(getMinPriceByHousingType(housingTypeInput.value));
   };
 
-  // TODO Добавить описание
+  /**
+   * Activates or Deactivates the form, on depending the active param.
+   * @param {boolean} active
+   */
   this.toggleActive = (active = true) => {
     if (active) {
       form.classList.remove('ad-form--disabled');
@@ -36,7 +44,13 @@ const AdForm = function () {
     });
   };
 
-  // TODO добавить метод установки адреса
+  /**
+   * Sets the location into the advertising (sets the coordinations into the address field).
+   * @param location
+   */
+  this.setLocation = (location) => {
+    addressInput.value = `${location.lat.toFixed(COORDS_DIGITS)}, ${location.lng.toFixed(COORDS_DIGITS)}`;
+  };
 
   const setMinPrice = (minPrice) => {
     priceInput.placeholder = minPrice;
