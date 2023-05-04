@@ -1,11 +1,6 @@
-import Advertisment from "./js/advertisement.js";
+import { generateAdvertismentMarkup } from './js/markup-generation.js';
+import { generateArrayOfObjects } from './js/ad-objects-generation.js';
 
-function generateArrayOfObjects(numberOfObjects) {
-  const array = Array(numberOfObjects)
-    .fill(null)
-    .map(() => new Advertisment());
-  array.forEach(console.log);
-  return array;
-}
-
-generateArrayOfObjects(5);
+const arr = generateArrayOfObjects(1);
+console.log(arr);
+generateAdvertismentMarkup(arr);

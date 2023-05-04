@@ -5,29 +5,29 @@ export default class Advertisment {
   static descriptionNumber = 0;
   constructor() {
     this.location = {
-      x: generateFloat(constants.location.min_x, constants.location.max_x, decimal = 5),
-      y: generateFloat(constants.location.min_y, constants.location.max_y, decimal = 5),
+      x: generateFloat(constants.location.min_x, constants.location.max_x, 5),
+      y: generateFloat(constants.location.min_y, constants.location.max_y, 5),
     },
       this.author = {
-        avatar: `img/avatars/user0${generateInteger(min = 1, max = 6)}`,
+        avatar: `img/avatars/user0${generateInteger(1, 6)}.png`,
       },
       this.offer = {
         title: `Объявление № ${++Advertisment.titleNumber}`,
         address: `${this.location.x}, ${this.location.y}`,
       },
-      this.price = `${generateInteger(min = 100000, max = 500000)} $`,
+      this.price = generateInteger(100, 10000),
       this.type =
-        constants.types[generateInteger(min = 1, max = constants.types.length - 1)],
-      this.rooms = generateInteger(min = 1, max = 10),
-      this.guests = generateInteger(min = 1, max = 10),
+        Object.keys(constants.types)[generateInteger(0, Object.keys(constants.types).length)],
+      this.rooms = generateInteger(1, 10),
+      this.guests = generateInteger(1, 10),
       this.checkIn =
-        constants.checkIns[generateInteger(min = 1, max = constants.checkIns.length - 1)],
+        constants.checkIns[generateInteger(0, constants.checkIns.length - 1)],
       this.checkOut =
         constants.checkOuts[
-          generateFloat(min = 1, max = constants.checkOuts.length)
+          generateInteger(0, constants.checkOuts.length - 1)
         ],
       this.description = `Описание № ${++Advertisment.descriptionNumber}`,
-      this.feature = generateArray(constants.features),
-      this.photo = generateArray(constants.photos);
+      this.features = generateArray(constants.features),
+      this.photos = generateArray(constants.photos);
   }
 }
