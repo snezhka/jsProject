@@ -1,5 +1,4 @@
 export function generateInteger(min, max) {
-
   return Math.floor(Math.random() * ((max-min)+1) + min);
 }
 
@@ -10,7 +9,7 @@ export function generateFloat(min, max, decimal = 2) {
 export function generateArray(array) {
   const min = 0;
   const max = array.length
-  let newArray = [...Array(generateInteger(min + 1, max))];
+  const newArray = [...Array(generateInteger(min + 1, max))];
   let generated
   for (let i = 0; i < newArray.length; i++) {
     do {
