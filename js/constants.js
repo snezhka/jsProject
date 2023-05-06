@@ -27,4 +27,39 @@ export const location = {
   max_y:139.8,
 };
 
+export const avatarIndex = {
+  min: 1, 
+  max: 6,
+};
+
+export const priceIndex = {
+  min: 100, 
+  max: 10000,
+};
+
+export const roomsIndex = {
+  min: 1, 
+  max: 10,
+};
+
+export const guestsIndex = {
+  min: 1, 
+  max: 10,
+};
+
+export const typesIndex = {
+  min: 0, 
+  max: Object.keys(types).length - 1,
+};
+
+export const checkInsIndex = {
+  min: 0, 
+  max: checkIns.length - 1,
+};
+
+export const checkOutsIndex = {
+  min: 0, 
+  max: checkOuts.length - 1,
+};
+
 

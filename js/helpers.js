@@ -10,13 +10,13 @@ export function generateArray(array) {
   const min = 0;
   const max = array.length
   const newArray = [...Array(generateInteger(min + 1, max))];
-  let generated
+  let randomElement
   for (let i = 0; i < newArray.length; i++) {
     do {
-      generated = array[generateInteger(min, max - 1)];
+      randomElement = array[generateInteger(min, max - 1)];
     }
-    while(newArray.includes(generated))
-    newArray[i] = generated;
+    while(newArray.includes(randomElement))
+    newArray[i] = randomElement;
   }
   return newArray;
 }
