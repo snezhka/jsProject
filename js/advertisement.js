@@ -1,6 +1,8 @@
+
 import { generateInteger, generateFloat, generateArray } from "./helpers.js";
 import { location, avatarIndex, priceIndex, roomsIndex, guestsIndex, types, checkIns, checkOuts,
    features, photos, typesIndex, checkInsIndex, checkOutsIndex } from "./constants.js";
+import  { getTypePrice } from "./form.js";
 
 export class Advertisment {
   static titleNumber = 0;
@@ -17,7 +19,7 @@ export class Advertisment {
         title: `Объявление № ${++Advertisment.titleNumber}`,
         address: `${this.location.x}, ${this.location.y}`,
       },
-      this.price = generateInteger(priceIndex.min, priceIndex.max),
+      this.price = generateInteger(getTypePrice(), priceIndex.max),
       this.type =
         Object.keys(types)[generateInteger(typesIndex.min, typesIndex.max)],
       this.rooms = generateInteger(roomsIndex.min, roomsIndex.max),

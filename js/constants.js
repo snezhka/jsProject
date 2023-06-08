@@ -34,7 +34,14 @@ export const avatarIndex = {
 
 export const priceIndex = {
   min: 100, 
-  max: 10000,
+  max: 100000,
+};
+
+export const typePrice = {
+  palace: 10000,
+  flat: 1000,
+  house: 5000,
+  bungalow: 0,
 };
 
 export const roomsIndex = {
