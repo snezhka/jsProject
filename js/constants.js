@@ -4,8 +4,10 @@ export const types = {
   house: 'Дом',
   bungalow: 'Бунгало',
 };
+
 export const checkIns = ['12:00', '13:00', '14:00'];
 export const checkOuts = ['12:00', '13:00', '14:00'];
+
 export const features = [
   'wifi',
   'dishwasher',
@@ -14,6 +16,7 @@ export const features = [
   'elevator',
   'conditioner',
 ];
+
 export const photos = [
   'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
@@ -63,7 +66,7 @@ export const checkInsIndex = {
   min: 0, 
   max: checkIns.length - 1,
 };
-
+//объединить с чекаут массивом
 export const checkOutsIndex = {
   min: 0, 
   max: checkOuts.length - 1,

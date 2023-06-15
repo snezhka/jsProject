@@ -1,52 +1,32 @@
 import { typePrice } from './constants.js';
 
-export function getTypePrice() {
-  let selectedType = document.querySelector('#type option:checked');
-  return typePrice[selectedType.value];
-}
-
-/**Reserved for future use. Do not review */
-function getSelectedRoomsNumber() {
-  let selectedRoomsNumber = document.querySelector('#room_number option:checked');
-  return selectedRoomsNumber.value;
-}
-
-/**Reserved for future use. Do not review */
-function removeGuestsOptions() {
-  let selectedRoomsNumber = getSelectedRoomsNumber();
-  let capacity = document.querySelector('#capacity');
-  switch(selectedRoomsNumber) {
-    case(1):
-      capacity.options.filter( o => o.value!=1).forEach(o => o.remove());
-      break;
-    case(2):
-      capacity.options.filter( o => o.value!=1 && o.value!=2).forEach(o => o.remove());
-      break;
-    case(3):
-      capacity.options.filter( o => o.value=100).forEach(o => o.remove());
-      break;
-    case(100):
-      capacity.options.filter( o => o.value!=100).forEach(o => o.remove());
-      break;
-  }
-}
-
-function changePricePlaceholderOfSelectedType() {
-  let type = document.querySelector('#type');
-  type.addEventListener( 'change', () => document.querySelector('#price').placeholder = `${getTypePrice()}`);
-}
+const type = document.querySelector('#type');
+const timeIn = document.querySelector('#timein');
+const timeOut = document.querySelector('#timeout');
 
 function changeTimeInAndOut(timeInput, timeOutput) {
   timeInput.addEventListener( 'change', () => {
-    let timeSelectedIndex = timeInput.options.selectedIndex;
+    const timeSelectedIndex = timeInput.options.selectedIndex;
     timeOutput.options.selectedIndex = timeSelectedIndex;
   });
 }
 
-let timeIn = document.querySelector('#timein');
-let timeOut = document.querySelector('#timeout');
+function changePricePlaceholderOfSelectedType() {
+  const priceElem = document.querySelector('#price');
+  const priceValue = getTypePrice();
+  priceElem.placeholder = `${priceValue}`;
+  priceElem.min = `${priceValue}`;
+}
 
-changePricePlaceholderOfSelectedType();
 changeTimeInAndOut(timeIn,timeOut);
 changeTimeInAndOut(timeOut, timeIn);
+
+type.addEventListener( 'change', changePricePlaceholderOfSelectedType);
+
+export function getTypePrice() {
+  const selectedType = document.querySelector('#type option:checked');
+  return typePrice[selectedType.value];
+}
+
+
 
