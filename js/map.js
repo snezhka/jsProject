@@ -1,4 +1,10 @@
-let map = L.map('map-canvas').setView([35.652832, 139.839478], 13);
+let map = L.map('map-canvas').setView([35.652832, 139.839478], 11);
+export let mainMarker = L.marker([35.652832, 139.839478], {
+  icon: L.icon({
+    iconUrl: '../leaflet/images/marker-icon-2x.png',
+  }),
+  draggable:true,
+})
 
 
 export function initializeMap() {
@@ -6,19 +12,24 @@ export function initializeMap() {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   }).addTo(map);
-  addMainMarker();
+  mainMarker.addTo(map);
+  mainMarker.bindPopup('<p>This is my ad</p>').openPopup();
 }
 
-function addMainMarker() {
-  let marker = L.marker([35.652832, 139.839478], {
+export function addMarkers(arr){
+  for (let elem of arr) {
+    addMarker(elem);
+  }
+}
+
+function addMarker(elem){
+  let marker = L.marker([elem.location.x, elem.location.y], {
     icon: L.icon({
-      iconUrl: '../img/main-pin.svg',
+      iconUrl: '../leaflet/images/marker-icon.png',
     }),
     draggable:true,
   }).addTo(map);
-  marker.addEventListener('drag', function(){
-    document.querySelector('#address').placeholder = `${marker.getLatLng()}`;
-  });
+  marker.bindPopup(JSON.stringify(elem), {maxWidth:900});
 }
 
 

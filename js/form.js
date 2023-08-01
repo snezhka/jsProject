@@ -1,5 +1,5 @@
 import { typePrice } from './constants.js';
-import { initializeMap } from './map.js';
+import { initializeMap, mainMarker, addMarkers } from './map.js';
 
 const type = document.querySelector('#type');
 const timeIn = document.querySelector('#timein');
@@ -10,6 +10,7 @@ const mapFilters = document.querySelector('.map__filters');
 const mapFieldSets = document.querySelectorAll('.map__filters > fieldset');
 const mapFieldSelects = document.querySelectorAll('.map__filters > select');
 const mapCanvas = document.querySelector('#map-canvas');
+const address = document.querySelector('#address');
 
 
 function changeTimeInAndOut(timeInput, timeOutput) {
@@ -42,10 +43,20 @@ export function disablePage() {
   [adFieldSets, mapFieldSets, mapFieldSelects].forEach(array => array.forEach(elem => elem.setAttribute('disabled', '')));
 }
 
-export function enablePage() {
+export function enablePage(arr) {
   initializeMap();
+  addMarkers(arr);
+  showAddressCoords();
   [adForm, mapFilters].forEach(form => form.classList.remove('ad-form--disabled'));
   [adFieldSets, mapFieldSets, mapFieldSelects].forEach(array => array.forEach(elem => elem.removeAttribute('disabled')));
+}
+
+function showAddressCoords(){
+  address.setAttribute('readonly', '');
+  address.placeholder = `${mainMarker.getLatLng()}`;
+  mainMarker.addEventListener('drag', function(){
+    address.placeholder = `${mainMarker.getLatLng()}`;
+  });
 }
 
 
