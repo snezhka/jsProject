@@ -16,7 +16,7 @@ export class Advertisment {
         avatar: `img/avatars/user0${generateInteger(avatarIndex.min, avatarIndex.max)}.png`,
       },
       this.offer = {
-        title: `Объявление № ${++Advertisment.titleNumber}`,
+        title: 'Объявление',
         address: `${this.location.x}, ${this.location.y}`,
       },
       this.price = generateInteger(getTypePrice(), priceIndex.max),
@@ -30,7 +30,7 @@ export class Advertisment {
         checkOuts[
           generateInteger(checkOutsIndex.min, checkOutsIndex.max)
         ],
-      this.description = `Описание № ${++Advertisment.descriptionNumber}`,
+      this.description = 'Описание',
       this.features = generateArray(features),
       this.photos = generateArray(photos);
   }

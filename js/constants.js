@@ -72,4 +72,10 @@ export const checkOutsIndex = {
   max: checkOuts.length - 1,
 };
 
+export const mainMarkerLatitude = 35.652832;
+export const mainMarkerLongitude = 139.839478;
+export const mapZoom = 11;
+export const iconSize = [50,50];
+
+
 

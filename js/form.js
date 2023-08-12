@@ -53,9 +53,9 @@ export function enablePage(arr) {
 
 function showAddressCoords(){
   address.setAttribute('readonly', '');
-  address.placeholder = `${mainMarker.getLatLng()}`;
+  address.value = new String(mainMarker.getLatLng()).slice(7, -1);
   mainMarker.addEventListener('drag', function(){
-    address.placeholder = `${mainMarker.getLatLng()}`;
+    address.value = new String(mainMarker.getLatLng()).slice(7, -1);
   });
 }
 

@@ -1,7 +1,11 @@
-let map = L.map('map-canvas').setView([35.652832, 139.839478], 11);
-export let mainMarker = L.marker([35.652832, 139.839478], {
+import { mainMarkerLatitude, mainMarkerLongitude, mapZoom, iconSize } from './constants.js';
+import { generateAdHtml } from './markup-generation.js';
+
+let map = L.map('map-canvas').setView([mainMarkerLatitude, mainMarkerLongitude], mapZoom);
+export let mainMarker = L.marker([mainMarkerLatitude, mainMarkerLongitude], {
   icon: L.icon({
-    iconUrl: '../leaflet/images/marker-icon-2x.png',
+    iconUrl: '../img/main-pin.svg',
+    iconSize: iconSize,
   }),
   draggable:true,
 })
@@ -9,11 +13,10 @@ export let mainMarker = L.marker([35.652832, 139.839478], {
 
 export function initializeMap() {
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
+    zoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   }).addTo(map);
   mainMarker.addTo(map);
-  mainMarker.bindPopup('<p>This is my ad</p>').openPopup();
 }
 
 export function addMarkers(arr){
@@ -25,11 +28,12 @@ export function addMarkers(arr){
 function addMarker(elem){
   let marker = L.marker([elem.location.x, elem.location.y], {
     icon: L.icon({
-      iconUrl: '../leaflet/images/marker-icon.png',
+      iconUrl: '../img/pin.svg',
+      iconSize: iconSize,
     }),
-    draggable:true,
+    draggable:false,
   }).addTo(map);
-  marker.bindPopup(JSON.stringify(elem), {maxWidth:900});
+  marker.bindPopup(`${generateAdHtml(elem)}`);
 }
 
 
