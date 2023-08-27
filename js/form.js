@@ -11,6 +11,10 @@ const mapFieldSets = document.querySelectorAll('.map__filters > fieldset');
 const mapFieldSelects = document.querySelectorAll('.map__filters > select');
 const mapCanvas = document.querySelector('#map-canvas');
 const address = document.querySelector('#address');
+const button = document.querySelector('.ad-form__submit');
+const roomNumber = document.querySelector('#room_number');
+const capacity = document.querySelector('#capacity');
+
 
 
 function changeTimeInAndOut(timeInput, timeOutput) {
@@ -59,5 +63,82 @@ function showAddressCoords(){
   });
 }
 
+function validateForm() {
+  validateTitle();
+  validatePrice();
+  validateRoomsGuests();
+
+}
+
+function validateTitle(){
+  const title = document.querySelector('#title');
+  title.setCustomValidity('');
+  if (title.value.length < 30 || title.value.length > 100){
+    title.setCustomValidity('Длина заголовка объявления должна быть от 30 до 100 символов');
+  }
+  if (+title.value){
+    title.setCustomValidity('Заголовок объявления должен содержать только текстовые символы');
+    
+  }
+  title.reportValidity();
+}
+
+function validatePrice(){
+  const price = document.querySelector('#price');
+  if (+price.value > 1000000){
+    price.setCustomValidity('Максимальное значение цены должно быть 1000000');
+  }
+  else if (!+price.value){
+    price.setCustomValidity('Цена должна содержать только число');
+  }
+  else {
+    price.setCustomValidity('');
+  }
+  price.reportValidity();
+}
+
+function validateRoomsGuests(){
+  const rooms = +roomNumber.value;
+  const guests = +capacity.value;
+  switch(rooms){
+    case 1:
+      if(guests === 1 ) {
+        capacity.setCustomValidity('');
+      } else {
+        capacity.setCustomValidity('Выбрано неверное кол-во комнат для одного гостя');
+        capacity.reportValidity();
+      }
+      break;
+    case 2:
+      if(guests === 1 || guests === 2) {
+        capacity.setCustomValidity('');
+      } else {
+        capacity.setCustomValidity('Выбрано неверное кол-во комнат для одного гостя');
+        capacity.reportValidity();
+      }
+      break;
+    case 3:
+      if(guests === 1 || guests === 2 || guests === 3) {
+        capacity.setCustomValidity('');
+      } else {
+        capacity.setCustomValidity('Выбрано неверное кол-во комнат для одного гостя');
+        capacity.reportValidity();
+      }
+      break;
+    case 100: {
+      if(guests === 0) {
+        capacity.setCustomValidity('');
+      } else {
+        capacity.setCustomValidity('Не для гостей');
+        capacity.reportValidity();
+      }
+    }
+      break;
+  }
+}
 
 
+button.addEventListener('click', function(evt){
+  evt.preventDefault();
+  validateForm();
+});
