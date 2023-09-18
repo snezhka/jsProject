@@ -49,12 +49,12 @@ export const typePrice = {
 
 export const roomsIndex = {
   min: 1, 
-  max: 10,
+  max: 3,
 };
 
 export const guestsIndex = {
-  min: 1, 
-  max: 10,
+  min: 0, 
+  max: 2,
 };
 
 export const typesIndex = {
@@ -76,6 +76,7 @@ export const mainMarkerLatitude = 35.652832;
 export const mainMarkerLongitude = 139.839478;
 export const mapZoom = 11;
 export const iconSize = [50,50];
+export const maxMarkers = 10;
 
 
 

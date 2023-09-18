@@ -20,8 +20,8 @@ export function initializeMap() {
 }
 
 export function addMarkers(arr){
-  for (let elem of arr) {
-    addMarker(elem);
+  for (let i=0; i <arr.length; i++) {
+    addMarker(arr[i]);
   }
 }
 
@@ -35,6 +35,7 @@ function addMarker(elem){
   }).addTo(map);
   marker.bindPopup(`${generateAdHtml(elem)}`);
 }
+
 
 
 

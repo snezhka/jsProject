@@ -58,3 +58,10 @@ export function generateMultipleAdsMarkup(array) {
     generateAdMarkup(elem);
   }
 }
+
+export function removeAllMarkerNodes(){
+  const markers = document.querySelectorAll('.leaflet-marker-pane img');
+  for (let i=1; i<markers.length;i++){
+    markers[i].remove();
+  }
+}
