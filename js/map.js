@@ -1,7 +1,7 @@
 import { mainMarkerLatitude, mainMarkerLongitude, mapZoom, iconSize } from './constants.js';
 import { generateAdHtml } from './markup-generation.js';
 
-let map = L.map('map-canvas').setView([mainMarkerLatitude, mainMarkerLongitude], mapZoom);
+export let map = L.map('map-canvas').setView([mainMarkerLatitude, mainMarkerLongitude], mapZoom);
 export let mainMarker = L.marker([mainMarkerLatitude, mainMarkerLongitude], {
   icon: L.icon({
     iconUrl: '../img/main-pin.svg',

@@ -1,4 +1,5 @@
 import { types } from './constants.js';
+import { map } from './map.js';
 
 function generateAdMarkup(ad){
   const map = document.querySelector('#map-canvas');
@@ -64,4 +65,8 @@ export function removeAllMarkerNodes(){
   for (let i=1; i<markers.length;i++){
     markers[i].remove();
   }
+  closePopup();
+}
+function closePopup(){
+  map.closePopup();
 }
