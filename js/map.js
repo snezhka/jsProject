@@ -21,7 +21,9 @@ export function initializeMap() {
 
 export function addMarkers(arr){
   for (let i=0; i <arr.length; i++) {
+    if (i==11) break;
     addMarker(arr[i]);
+
   }
 }
 
