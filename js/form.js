@@ -18,7 +18,7 @@ const capacity = document.querySelector('#capacity');
 
 
 function changeTimeInAndOut(timeInput, timeOutput) {
-  timeInput.addEventListener( 'change', () => {
+  timeInput.addEventListener('change', () => {
     const timeSelectedIndex = timeInput.options.selectedIndex;
     timeOutput.options.selectedIndex = timeSelectedIndex;
   });
@@ -31,10 +31,10 @@ function changePricePlaceholderOfSelectedType() {
   priceElem.min = `${priceValue}`;
 }
 
-changeTimeInAndOut(timeIn,timeOut);
+changeTimeInAndOut(timeIn, timeOut);
 changeTimeInAndOut(timeOut, timeIn);
 
-type.addEventListener( 'change', changePricePlaceholderOfSelectedType);
+type.addEventListener('change', changePricePlaceholderOfSelectedType);
 mapCanvas.addEventListener('dblclick', enablePage);
 
 export function getTypePrice() {
@@ -55,10 +55,10 @@ export function enablePage(arr) {
   [adFieldSets, mapFieldSets, mapFieldSelects].forEach(array => array.forEach(elem => elem.removeAttribute('disabled')));
 }
 
-function showAddressCoords(){
+function showAddressCoords() {
   address.setAttribute('readonly', '');
   address.value = new String(mainMarker.getLatLng()).slice(7, -1);
-  mainMarker.addEventListener('drag', function(){
+  mainMarker.addEventListener('drag', function () {
     address.value = new String(mainMarker.getLatLng()).slice(7, -1);
   });
 }
@@ -70,25 +70,25 @@ function validateForm() {
 
 }
 
-function validateTitle(){
+function validateTitle() {
   const title = document.querySelector('#title');
   title.setCustomValidity('');
-  if (title.value.length < 30 || title.value.length > 100){
+  if (title.value.length < 30 || title.value.length > 100) {
     title.setCustomValidity('Длина заголовка объявления должна быть от 30 до 100 символов');
   }
-  if (+title.value){
+  if (+title.value) {
     title.setCustomValidity('Заголовок объявления должен содержать только текстовые символы');
-    
+
   }
   title.reportValidity();
 }
 
-function validatePrice(){
+function validatePrice() {
   const price = document.querySelector('#price');
-  if (+price.value > 1000000){
+  if (+price.value > 1000000) {
     price.setCustomValidity('Максимальное значение цены должно быть 1000000');
   }
-  else if (!+price.value){
+  else if (!+price.value) {
     price.setCustomValidity('Цена должна содержать только число');
   }
   else {
@@ -97,12 +97,12 @@ function validatePrice(){
   price.reportValidity();
 }
 
-function validateRoomsGuests(){
+function validateRoomsGuests() {
   const rooms = +roomNumber.value;
   const guests = +capacity.value;
-  switch(rooms){
+  switch (rooms) {
     case 1:
-      if(guests === 1 ) {
+      if (guests === 1) {
         capacity.setCustomValidity('');
       } else {
         capacity.setCustomValidity('Выбрано неверное кол-во комнат для одного гостя');
@@ -110,7 +110,7 @@ function validateRoomsGuests(){
       }
       break;
     case 2:
-      if(guests === 1 || guests === 2) {
+      if (guests === 1 || guests === 2) {
         capacity.setCustomValidity('');
       } else {
         capacity.setCustomValidity('Выбрано неверное кол-во комнат для одного гостя');
@@ -118,7 +118,7 @@ function validateRoomsGuests(){
       }
       break;
     case 3:
-      if(guests === 1 || guests === 2 || guests === 3) {
+      if (guests === 1 || guests === 2 || guests === 3) {
         capacity.setCustomValidity('');
       } else {
         capacity.setCustomValidity('Выбрано неверное кол-во комнат для одного гостя');
@@ -126,7 +126,7 @@ function validateRoomsGuests(){
       }
       break;
     case 100: {
-      if(guests === 0) {
+      if (guests === 0) {
         capacity.setCustomValidity('');
       } else {
         capacity.setCustomValidity('Не для гостей');
@@ -138,7 +138,18 @@ function validateRoomsGuests(){
 }
 
 
-button.addEventListener('click', function(evt){
+button.addEventListener('click', async function (evt) {
   evt.preventDefault();
   validateForm();
+  const formData = new FormData(adForm);
+  const form = JSON.stringify(Object.fromEntries(formData));
+  console.log(form);
+  let response = await fetch('http://localhost:8080/offer', {
+    method: 'POST',
+    body: form,
+  });
+
+  let result = await response.json();
+
+  console.log(result.message);
 });

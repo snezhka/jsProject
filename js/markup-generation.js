@@ -1,7 +1,7 @@
 import { types } from './constants.js';
 import { map } from './map.js';
 
-function generateAdMarkup(ad){
+function generateAdMarkup(ad) {
   const map = document.querySelector('#map-canvas');
   const card = document.querySelector('#card').cloneNode(true).content;
   const features = card.querySelector('.popup__features');
@@ -19,54 +19,54 @@ function generateAdMarkup(ad){
   map.append(card);
 }
 
-export function generateAdHtml(elem){
+export function generateAdHtml(elem) {
   return `<article class="popup">
-  <img src="${elem.author.avatar}" class="popup__avatar" width="70" height="70" alt="Аватар пользователя">
-  <h3 class="popup__title">${elem.offer.title}</h3>
-  <p class="popup__text popup__text--address">${elem.location.x}, ${elem.location.y}</p>
+  <img src="${elem.avatar}" class="popup__avatar" width="70" height="70" alt="Аватар пользователя">
+  <h3 class="popup__title">${elem.title}</h3>
+  <p class="popup__text popup__text--address">${elem.address.slice(0, elem.address.indexOf(','))}, ${elem.address.slice(elem.address.indexOf(',') + 2)}</p>
   <p class="popup__text popup__text--price">${elem.price} ₽/ночь</p>
   <h4 class="popup__type">${types[elem.type]}</h4>
-  <p class="popup__text popup__text--capacity">${elem.rooms} комнаты для ${elem.guests} гостей</p>
-  <p class="popup__text popup__text--time">Заезд после ${elem.checkIn}, выезд до ${elem.checkOut}</p>
+  <p class="popup__text popup__text--capacity">${elem.rooms} комнаты для ${elem.capacity} гостей</p>
+  <p class="popup__text popup__text--time">Заезд после ${elem.timein}, выезд до ${elem.timeout}</p>
   <ul class="popup__features">
   ${addFeatures(elem.features)}
   </ul>
   <p class="popup__description">${elem.description}</p>
   <div class="popup__photos">
-  ${addPhotos(elem.photos)}
+  ${addPhotos(elem.images)}
   </div>
   </article>`;
 }
 
-function addPhotos(photos){
+function addPhotos(photos) {
   let photosMarkup = '';
-  for (let photo of photos){
+  for (let photo of photos) {
     photosMarkup += `<img src=${photo} class="popup__photo" width="45" height="40" alt="Фотография жилья">`;
   }
   return photosMarkup;
 }
 
-function addFeatures(features){
+function addFeatures(features) {
   let featuresMarkup = '';
-  for (let feature of features){
+  for (let feature of features) {
     featuresMarkup += `<li class="popup__feature popup__feature--${feature}"></li>`;
   }
   return featuresMarkup;
 }
 
 export function generateMultipleAdsMarkup(array) {
-  for (let elem of array){
+  for (let elem of array) {
     generateAdMarkup(elem);
   }
 }
 
-export function removeAllMarkerNodes(){
+export function removeAllMarkerNodes() {
   const markers = document.querySelectorAll('.leaflet-marker-pane img');
-  for (let i=1; i<markers.length;i++){
+  for (let i = 1; i < markers.length; i++) {
     markers[i].remove();
   }
   closePopup();
 }
-function closePopup(){
+function closePopup() {
   map.closePopup();
 }

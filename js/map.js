@@ -7,7 +7,7 @@ export let mainMarker = L.marker([mainMarkerLatitude, mainMarkerLongitude], {
     iconUrl: '../img/main-pin.svg',
     iconSize: iconSize,
   }),
-  draggable:true,
+  draggable: true,
 })
 
 
@@ -19,21 +19,21 @@ export function initializeMap() {
   mainMarker.addTo(map);
 }
 
-export function addMarkers(arr){
-  for (let i=0; i <arr.length; i++) {
-    if (i==11) break;
+export function addMarkers(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    if (i == 11) break;
     addMarker(arr[i]);
 
   }
 }
 
-function addMarker(elem){
+function addMarker(elem) {
   let marker = L.marker([elem.location.x, elem.location.y], {
     icon: L.icon({
       iconUrl: '../img/pin.svg',
       iconSize: iconSize,
     }),
-    draggable:false,
+    draggable: false,
   }).addTo(map);
   marker.bindPopup(`${generateAdHtml(elem)}`);
 }
